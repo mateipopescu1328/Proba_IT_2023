@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import Logo from './LogoPollIT.PNG';
-import Footer from './Footer';
 import "./NavbarStyles.css";
 import Popup from './Login';
 import RegisterPopup from './Register';
@@ -9,30 +8,40 @@ class Navbar extends Component {
     state = {
         clicked: false,
         isLoginPopupOpen: false,
-        isRegisterPopupOpen: false
+        isRegisterPopupOpen: false,
+        isLoginMode: true,
+        isBlurBackground: false,
     };
 
     handleClick = () => {
         this.setState({ clicked: !this.state.clicked });
     }
-
-
     openLoginPopup = () => {
-        this.setState({ isLoginPopupOpen: true });
-    }
-
-
-    closeLoginPopup = () => {
-        this.setState({ isLoginPopupOpen: false });
+        this.setState({
+            isLoginPopupOpen: true,
+            isRegisterPopupOpen: false,
+            isLoginMode: true,
+            isBlurBackground: true,
+        });
     }
 
     openRegisterPopup = () => {
-        this.setState({ isRegisterPopupOpen: true });
+        this.setState({
+            isRegisterPopupOpen: true,
+            isLoginPopupOpen: false,
+            isLoginMode: false,
+            isBlurBackground: true,
+        });
+    }
+
+    closeLoginPopup = () => {
+        this.setState({ isLoginPopupOpen: false, isBlurBackground: false });
     }
 
     closeRegisterPopup = () => {
-        this.setState({ isRegisterPopupOpen: false });
+        this.setState({ isRegisterPopupOpen: false, isBlurBackground: false });
     }
+
 
     render() {
         return (
@@ -54,17 +63,19 @@ class Navbar extends Component {
                     {/* CONTINUT */}
                 </div>
 
+                <div className={this.state.isBlurBackground ? "blur-background" : ""}></div>
+
                 <Popup
                     trigger={this.state.isLoginPopupOpen}
                     setTrigger={this.closeLoginPopup}
+                    isLoginMode={this.state.isLoginMode}
                 />
 
                 <RegisterPopup
                     trigger={this.state.isRegisterPopupOpen}
                     setTrigger={this.closeRegisterPopup}
+                    isLoginMode={this.state.isLoginMode}
                 />
-
-                <Footer />
 
             </div>
         );

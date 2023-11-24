@@ -14,19 +14,22 @@ nav {
 
 #navbar li {
     list-style: none;
+    background-color: white;
     padding: 0 20px;
     position: relative;
 }
 
 #navbar li a {
     text-decoration: none;
+    background-color: white;
     font-size: 1.5rem;
     font-weight: 600;
-    color: blue;
+    color: #04395E;
 }
 
 #mobile {
     display: none;
+    background-color: white;
 }
 
 #mobile i {
@@ -52,6 +55,7 @@ nav {
 
     #navbar.active {
         right: 0px;
+        z-index: 2;
     }
 
     #navbar li {
@@ -65,5 +69,6 @@ nav {
     #mobile i {
         font-size: 24px;
         cursor: pointer;
+        background-color: white;
     }
 }

@@ -1,7 +1,9 @@
 * {
   margin: 0;
-  pad: 0;
-  box-sizing: border-box;
+  padding: 0;
+  box-sizing: border-box;   
+  background-color: #04395E;
+  ;
 }
 
 .App {
@@ -27,3 +29,13 @@
 .App-link {
   color: #61dafb;
 }
+
+.testpng{
+  position: absolute;
+  top: 105px;
+  right: 0;
+  height: 30vmin;
+  pointer-events: none;
+  z-index: 1;
+}
+
