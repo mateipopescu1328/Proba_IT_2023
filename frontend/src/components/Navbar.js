@@ -59,10 +59,6 @@ class Navbar extends Component {
                     </div>
                 </nav>
 
-                <div className="content">
-                    {/* CONTINUT */}
-                </div>
-
                 <div className={this.state.isBlurBackground ? "blur-background" : ""}></div>
 
                 <Popup

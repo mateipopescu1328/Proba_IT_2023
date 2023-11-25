@@ -1,0 +1,66 @@
+/* Poll.css */
+
+.poll-container {
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 10px);
+    margin-bottom: 100px;
+    max-width: 650px;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto; /* Center container pe ecran */
+  }
+  
+  .poll-title {
+    font-size: 1em; /* Reducem mărimea fontului pentru titlu */
+    margin-bottom: 10px;
+  }
+  
+  .choice-label {
+    display: flex;
+    margin-bottom: 5px;
+  }
+  
+  .choice-option {
+    margin-right: 5px;
+  }
+  
+  .make-choice-text {
+    font-size: 0.8em;
+    color: #555;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  
+  .vote-btn {
+    display: flex;
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #04395E;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: auto !important;
+}
+
+  
+  /* ... */
+
+  @media (max-width: 768px) {
+    .poll-container {
+      width: 90%; /* Redu lățimea la 90% pentru a adăuga spațiu la stânga și la dreapta */
+      max-width: 400px; /* Poți ajusta dimensiunea maximă dacă dorești */
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .poll-container {
+      width: calc(50% - 10px); /* Afișează câte două pe rând, cu un spațiu între ele */
+    }
+  }
+  

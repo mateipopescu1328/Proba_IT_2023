@@ -1,14 +1,8 @@
 .footer {
-  background-color: #ff66b2; 
+  background-color: #ff66b2;
   padding: 20px;
   text-align: center;
   width: 100%;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; 
 }
 
 .content {
@@ -17,21 +11,21 @@
 
 .social-icons {
   display: flex;
-  background-color: #ff66b2; 
+  background-color: #ff66b2;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; 
+  margin-top: 20px;
 }
 
 .social-icons a {
-  background-color: #ff66b2; 
+  background-color: #ff66b2;
   color: #fff;
-  margin: 0 20px; 
+  margin: 0 20px;
   text-decoration: none;
 }
 
 .social-icons i {
-  background-color: #ff66b2; 
+  background-color: #ff66b2;
   font-size: 32px;
   transition: color 0.3s ease;
 }
