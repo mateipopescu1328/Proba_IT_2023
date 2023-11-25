@@ -15,6 +15,7 @@
   .popup-inner {
     padding: 20px;
     text-align: center;
+    border-radius: 8px;
   }
   
   .popup-inner h2 {

@@ -1,81 +1,118 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from './LogoPollIT.PNG';
 import "./NavbarStyles.css";
 import Popup from './Login';
 import RegisterPopup from './Register';
+import CreatePollPopup from './CreatePollPopup';
 
-class Navbar extends Component {
-    state = {
-        clicked: false,
-        isLoginPopupOpen: false,
-        isRegisterPopupOpen: false,
-        isLoginMode: true,
-        isBlurBackground: false,
-    };
+const Navbar = () => {
+    const [clicked, setClicked] = useState(false);
+    const [isLoginPopupOpen, setLoginPopupOpen] = useState(false);
+    const [isRegisterPopupOpen, setRegisterPopupOpen] = useState(false);
+    const [isCreatePollPopupOpen, setCreatePollPopupOpen] = useState(false);
+    const [isLoginMode, setLoginMode] = useState(true);
+    const [isBlurBackground, setBlurBackground] = useState(false);
 
-    handleClick = () => {
-        this.setState({ clicked: !this.state.clicked });
-    }
-    openLoginPopup = () => {
-        this.setState({
-            isLoginPopupOpen: true,
-            isRegisterPopupOpen: false,
-            isLoginMode: true,
-            isBlurBackground: true,
-        });
+    const location = useLocation();
+    const { pathname } = location;
+
+    const handleClick = () => {
+        setClicked(!clicked);
     }
 
-    openRegisterPopup = () => {
-        this.setState({
-            isRegisterPopupOpen: true,
-            isLoginPopupOpen: false,
-            isLoginMode: false,
-            isBlurBackground: true,
-        });
+    const openLoginPopup = () => {
+        setLoginPopupOpen(true);
+        setRegisterPopupOpen(false);
+        setCreatePollPopupOpen(false);
+        setLoginMode(true);
+        setBlurBackground(true);
     }
 
-    closeLoginPopup = () => {
-        this.setState({ isLoginPopupOpen: false, isBlurBackground: false });
+    const openRegisterPopup = () => {
+        setRegisterPopupOpen(true);
+        setLoginPopupOpen(false);
+        setCreatePollPopupOpen(false);
+        setLoginMode(false);
+        setBlurBackground(true);
     }
 
-    closeRegisterPopup = () => {
-        this.setState({ isRegisterPopupOpen: false, isBlurBackground: false });
+    const openCreatePollPopup = () => {
+        console.log('Trying to open Create Poll Popup');
+        setCreatePollPopupOpen(true);
+        setLoginPopupOpen(false);
+        setRegisterPopupOpen(false);
+        setLoginMode(true);
+        setBlurBackground(true);
     }
 
+    const closeLoginPopup = () => {
+        setLoginPopupOpen(false);
+        setBlurBackground(false);
+    }
 
-    render() {
-        return (
-            <div className="container">
-                <nav>
-                    <img src={Logo} className="App-logo" alt="logo" />
-                    <div>
-                        <ul id="navbar" className={this.state.clicked ? "#navbar active" : "#navbar"}>
-                            <li><a href="#" onClick={this.openLoginPopup}>Login</a></li>
-                            <li><a href="#" onClick={this.openRegisterPopup}>Register</a></li>
-                        </ul>
-                    </div>
-                    <div id="mobile" onClick={this.handleClick}>
-                        <i id="bar" className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
-                    </div>
-                </nav>
+    const closeRegisterPopup = () => {
+        setRegisterPopupOpen(false);
+        setBlurBackground(false);
+    }
 
-                <div className={this.state.isBlurBackground ? "blur-background" : ""}></div>
+    const closeCreatePollPopup = () => {
+        setCreatePollPopupOpen(false);
+        setBlurBackground(false);
+    }
 
-                <Popup
-                    trigger={this.state.isLoginPopupOpen}
-                    setTrigger={this.closeLoginPopup}
-                    isLoginMode={this.state.isLoginMode}
-                />
+    // Verificăm dacă suntem pe pagina createpollpage pentru a decide dacă deschidem popup-ul sau nu
+    const shouldOpenCreatePollPopup = pathname === '/createpollpage';
 
-                <RegisterPopup
-                    trigger={this.state.isRegisterPopupOpen}
-                    setTrigger={this.closeRegisterPopup}
-                    isLoginMode={this.state.isLoginMode}
-                />
+    return (
+        <div className="container">
+            <nav>
+                <img src={Logo} className="App-logo" alt="logo" />
+                <div>
+                    <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
+                        {pathname === '/' && (
+                            <>
+                                <li><a href="#" onClick={openLoginPopup}>Login</a></li>
+                                <li><a href="#" onClick={openRegisterPopup}>Register</a></li>
+                            </>
+                        )}
+                        {pathname === '/createpollpage' && (
+                            <>
+                                <li><a href="#" onClick={openCreatePollPopup}>Create Poll</a></li>
+                                <li><Link to="/">Log out</Link></li>
+                            </>
+                        )}
+                    </ul>
+                </div>
+                <div id="mobile" onClick={handleClick}>
+                    <i id="bar" className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+                </div>
+            </nav>
 
+            <div className="content">
+                {/* CONTINUT */}
             </div>
-        );
-    }
+
+            <div className={isBlurBackground ? "blur-background" : ""}></div>
+
+            <Popup
+                trigger={isLoginPopupOpen}
+                setTrigger={closeLoginPopup}
+                isLoginMode={isLoginMode}
+            />
+
+            <RegisterPopup
+                trigger={isRegisterPopupOpen}
+                setTrigger={closeRegisterPopup}
+                isLoginMode={isLoginMode}
+            />
+
+            <CreatePollPopup
+                trigger={isCreatePollPopupOpen}
+                setTrigger={closeCreatePollPopup}
+            />
+        </div>
+    );
 }
 
 export default Navbar;

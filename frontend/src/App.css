@@ -16,6 +16,7 @@
 .App-logo {
   height: 7vmin;
   pointer-events: none;
+  z-index: 1;
 }
 
 .App-header {

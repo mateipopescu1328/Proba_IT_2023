@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
 function Popup(props) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState(null);
@@ -27,6 +29,7 @@ function Popup(props) {
       } else {
         setMessage(data.message);
         setError(null);
+        navigate('/createpollpage');
       }
     } catch (error) {
       console.error('Eroare la conectarea la server:', error);

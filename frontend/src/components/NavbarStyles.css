@@ -51,6 +51,8 @@ nav {
         background: white;
         padding: 10px 0 0 10px;
         transition: 0.3s ease-in-out;
+        width: 170px;
+        align-items: right;
     }
 
     #navbar.active {

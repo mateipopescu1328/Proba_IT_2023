@@ -1,17 +1,18 @@
-// Poll.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Poll.css';
 
 const Poll = ({ title, options }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showVoteButton, setShowVoteButton] = useState(false);
 
+  useEffect(() => {
+    // Acest efect se va rula de fiecare dată când selectedOption se schimbă
+    setShowVoteButton(selectedOption !== null);
+  }, [selectedOption]);
+
   const handleOptionChange = (option) => {
     setSelectedOption(option);
-    setShowVoteButton(prevState => !prevState); // Utilizează callback-ul pentru a asigura actualizarea corectă
-    console.log('showVoteButton:', showVoteButton);
   };
-  
 
   const handleVoteClick = () => {
     // Implementează logica pentru a vota pentru opțiunea selectată
