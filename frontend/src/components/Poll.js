@@ -4,6 +4,28 @@ import './Poll.css';
 const Poll = ({ pollId, title, options }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showVoteButton, setShowVoteButton] = useState(false);
+  const [votes, setVotes] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [hasVoted, setHasVoted] = useState(false);
+
+  useEffect(() => {
+    const fetchPollData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/polls/${pollId}`);
+        const pollData = await response.json();
+
+        if (response.ok) {
+          setVotes(pollData.options.map(option => option.votes));
+        } else {
+          console.error('Eroare obținere date sondaj:', pollData.message);
+        }
+      } catch (error) {
+        console.error('Eroare obținere date sondaj:', error.message);
+      }
+    };
+
+    fetchPollData();
+  }, [pollId]);
 
   useEffect(() => {
     setShowVoteButton(selectedOption !== null);
@@ -11,6 +33,7 @@ const Poll = ({ pollId, title, options }) => {
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
+    setHasVoted(false);
   };
 
   const handleVoteClick = async () => {
@@ -31,12 +54,22 @@ const Poll = ({ pollId, title, options }) => {
 
       if (response.ok) {
         console.log('Vot înregistrat cu succes:', data.message);
-        // Poți actualiza starea sau interfața utilizatorului aici, dacă este necesar
+        const updatedPollData = await fetch(`http://localhost:5000/api/polls/${pollId}`);
+        const pollData = await updatedPollData.json();
+
+        if (updatedPollData.ok) {
+          setVotes(pollData.options.map(option => option.votes));
+        } else {
+          console.error('Eroare obținere date sondaj:', pollData.message);
+        }
+        setHasVoted(true);
       } else {
         console.error('Eroare înregistrare vot:', data.message);
+        setErrorMessage(data.message);
       }
     } catch (error) {
       console.error('Eroare înregistrare vot:', error.message);
+      setErrorMessage('Eroare înregistrare vot. Te rugăm să încerci din nou.');
     }
   };
 
@@ -58,10 +91,21 @@ const Poll = ({ pollId, title, options }) => {
           </label>
         ))}
       </div>
-      {showVoteButton && (
+      <div className='altceva'>
         <button className="vote-btn" onClick={handleVoteClick}>
           Vote
         </button>
+
+      </div>
+      <div className="ceva">{errorMessage}</div>
+      {selectedOption && !hasVoted && (
+        <div>
+          {options.map((option, index) => (
+            <div className="ceva" key={index}>
+              {option} - Voturi: {votes[index]}
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

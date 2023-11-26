@@ -163,6 +163,7 @@ app.get('/api/polls', async (req, res) => {
 });
 
 
+// În ruta API pentru obținerea detaliilor unui sondaj
 app.get('/api/polls/:id', async (req, res) => {
   try {
     const pollId = req.params.id;
@@ -170,12 +171,23 @@ app.get('/api/polls/:id', async (req, res) => {
     if (!poll) {
       return res.status(404).json({ message: 'Pollul nu a fost găsit' });
     }
-    res.status(200).json(poll);
+
+    // Returnează detaliile sondajului cu numărul de voturi pentru fiecare opțiune
+    const pollDetails = {
+      _id: poll._id,
+      title: poll.title,
+      options: poll.options.map(option => ({ text: option.text, votes: option.votes })),
+      voters: poll.voters,
+      createdAt: poll.createdAt,
+    };
+
+    res.status(200).json(pollDetails);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Eroare la obținerea poll-ului' });
   }
 });
+
 
 app.get('/api/latestpolls', async (req, res) => {
   try {
@@ -187,6 +199,7 @@ app.get('/api/latestpolls', async (req, res) => {
   }
 });
 
+// În server.js, ruta pentru înregistrarea voturilor
 app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
   try {
     const pollId = req.params.id;

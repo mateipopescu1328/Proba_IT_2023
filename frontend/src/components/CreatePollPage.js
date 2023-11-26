@@ -37,8 +37,16 @@ function CreatePollPage() {
 
             <div className="polls-container">
                 {allPolls.map(poll => (
-                    <Poll key={poll._id} pollId={poll._id} title={poll.title} options={poll.options.map(option => option.text)} handleVote={() => console.log('Votat!')} />
+                    <Poll
+                        key={poll._id}
+                        pollId={poll._id}
+                        title={poll.title}
+                        options={poll.options.map(option => option.text)}
+                        votes={poll.options.map(option => option.votes)}
+                        handleVote={() => console.log('Votat!')}
+                    />
                 ))}
+
 
             </div>
 
