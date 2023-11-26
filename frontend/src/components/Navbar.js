@@ -61,7 +61,6 @@ const Navbar = () => {
         setBlurBackground(false);
     }
 
-    // Verificăm dacă suntem pe pagina createpollpage pentru a decide dacă deschidem popup-ul sau nu
     const shouldOpenCreatePollPopup = pathname === '/createpollpage';
 
     return (

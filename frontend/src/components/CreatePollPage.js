@@ -3,11 +3,17 @@ import test from './testoasa 1.png';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Poll from './Poll';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function CreatePollPage() {
-    const [buttonPopup, setButtonPopup] = useState(false);
-    const pollOptions = ['Opțiunea 1', 'Opțiunea 2', 'Opțiunea 3', 'Opțiunea 4'];
+    const [allPolls, setAllPolls] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/api/polls')
+            .then(response => response.json())
+            .then(data => setAllPolls(data))
+            .catch(error => console.error('Eroare la obținerea tuturor poll-urilor:', error));
+    }, []);
 
     return (
         <div className="App">
@@ -30,10 +36,9 @@ function CreatePollPage() {
             </div>
 
             <div className="polls-container">
-                <Poll title="Sondajul 1" options={pollOptions} handleVote={() => console.log('Votat!')} />
-                <Poll title="Sondajul 2" options={pollOptions} handleVote={() => console.log('Votat!')} />
-                <Poll title="Sondajul 3" options={pollOptions} handleVote={() => console.log('Votat!')} />
-                <Poll title="Sondajul 4" options={pollOptions} handleVote={() => console.log('Votat!')} />
+                {allPolls.map(poll => (
+                    <Poll key={poll._id} title={poll.title} options={poll.options.map(option => option.text)} handleVote={() => console.log('Votat!')} />
+                ))}
             </div>
 
             <Footer />

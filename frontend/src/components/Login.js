@@ -29,6 +29,9 @@ function Popup(props) {
       } else {
         setMessage(data.message);
         setError(null);
+
+        localStorage.setItem('auth-token', data.token);
+
         navigate('/createpollpage');
       }
     } catch (error) {
