@@ -187,4 +187,42 @@ app.get('/api/latestpolls', async (req, res) => {
   }
 });
 
+app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
+  try {
+    const pollId = req.params.id;
+    const userId = req.user.id;
+    const selectedOption = req.body.option;
+
+    const poll = await Poll.findById(pollId);
+
+    if (!poll) {
+      return res.status(404).json({ message: 'Pollul nu a fost găsit' });
+    }
+
+    // Verifică dacă utilizatorul a votat deja în acest poll
+    if (poll.voters.includes(userId)) {
+      return res.status(400).json({ message: 'Ai votat deja în acest poll' });
+    }
+
+    // Actualizează numărul de voturi pentru opțiunea selectată
+    const optionIndex = poll.options.findIndex(option => option.text === selectedOption);
+    if (optionIndex !== -1) {
+      poll.options[optionIndex].votes += 1;
+    } else {
+      return res.status(400).json({ message: 'Opțiunea de vot nu există în acest poll' });
+    }
+
+    // Adaugă utilizatorul la lista de votanți
+    poll.voters.push(userId);
+
+    await poll.save();
+
+    res.status(200).json({ message: 'Vot înregistrat cu succes' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Eroare la înregistrarea votului' });
+  }
+});
+
+
 app.listen(PORT, () => console.log(`Serverul rulează la adresa http://localhost:${PORT}`));

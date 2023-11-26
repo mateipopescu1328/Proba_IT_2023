@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Poll.css';
 
-const Poll = ({ title, options }) => {
+const Poll = ({ pollId, title, options }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showVoteButton, setShowVoteButton] = useState(false);
 
   useEffect(() => {
-    // Acest efect se va rula de fiecare dată când selectedOption se schimbă
     setShowVoteButton(selectedOption !== null);
   }, [selectedOption]);
 
@@ -14,9 +13,31 @@ const Poll = ({ title, options }) => {
     setSelectedOption(option);
   };
 
-  const handleVoteClick = () => {
-    // Implementează logica pentru a vota pentru opțiunea selectată
-    console.log(`Ai votat pentru: ${selectedOption}`);
+  const handleVoteClick = async () => {
+    try {
+      const token = localStorage.getItem('auth-token');
+      const response = await fetch(`http://localhost:5000/api/polls/${pollId}/vote`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': token,
+        },
+        body: JSON.stringify({
+          option: selectedOption,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Vot înregistrat cu succes:', data.message);
+        // Poți actualiza starea sau interfața utilizatorului aici, dacă este necesar
+      } else {
+        console.error('Eroare înregistrare vot:', data.message);
+      }
+    } catch (error) {
+      console.error('Eroare înregistrare vot:', error.message);
+    }
   };
 
   return (
