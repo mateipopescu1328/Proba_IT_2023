@@ -21,7 +21,12 @@ const Navbar = () => {
         setClicked(!clicked);
     }
 
+    const closeMenu = () => {
+        setClicked(false);
+    }
+
     const openLoginPopup = () => {
+        closeMenu();
         setLoginPopupOpen(true);
         setRegisterPopupOpen(false);
         setCreatePollPopupOpen(false);
@@ -30,6 +35,7 @@ const Navbar = () => {
     }
 
     const openRegisterPopup = () => {
+        closeMenu();
         setRegisterPopupOpen(true);
         setLoginPopupOpen(false);
         setCreatePollPopupOpen(false);
@@ -38,6 +44,7 @@ const Navbar = () => {
     }
 
     const openCreatePollPopup = () => {
+        closeMenu();
         console.log('Trying to open Create Poll Popup');
         setCreatePollPopupOpen(true);
         setLoginPopupOpen(false);
@@ -68,7 +75,7 @@ const Navbar = () => {
             <nav>
                 <img src={Logo} className="App-logo" alt="logo" />
                 <div>
-                    <ul id="navbar" className={clicked ? "#navbar active" : "#navbar"}>
+                    <ul id="navbar" className={clicked ? "active" : ""}>
                         {pathname === '/' && (
                             <>
                                 <li><a href="#" onClick={openLoginPopup}>Login</a></li>

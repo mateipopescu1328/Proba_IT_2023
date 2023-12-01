@@ -12,6 +12,10 @@ const Poll = ({ pollId, title, options, user }) => {
   useEffect(() => {
     const fetchPollData = async () => {
       try {
+        if (!pollId) {
+          console.error('pollId is undefined');
+          return;
+        }
         const response = await fetch(`http://localhost:5000/api/polls/${pollId}`);
         const pollData = await response.json();
 
