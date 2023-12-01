@@ -100,7 +100,7 @@ function RegisterPopup(props) {
             <button type="submit">Create Account</button>
           </div>
           {message && <p style={{ color: 'white', fontSize: '1.2em', backgroundColor: '#04395E', padding: '10px', borderRadius: '5px' }}>{message}</p>}
-          {error && <p style={{ color: 'blue' }}>{error}</p>}
+          {error && <p style={{ color: 'white' }}>{error}</p>}
         </form>
       </div>
     </div>

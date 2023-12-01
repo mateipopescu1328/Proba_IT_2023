@@ -78,6 +78,14 @@ app.post('/api/register', async (req, res) => {
   try {
     const { email, password } = req.body;
 
+    if (!email.includes('@') || email.split('@')[1] !== 'gmail.com') {
+      return res.status(400).json({ message: 'Adresa de email nu este validă. Trebuie să fie de tipul @gmail.com.' });
+    }
+
+    if (password.length < 8 || password.length > 32) {
+      return res.status(400).json({ message: 'Parola trebuie să conțină între 8 și 32 de caractere.' });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'Utilizatorul cu acest email există deja.' });
