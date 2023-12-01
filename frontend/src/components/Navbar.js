@@ -95,10 +95,6 @@ const Navbar = () => {
                 </div>
             </nav>
 
-            <div className="content">
-                {/* CONTINUT */}
-            </div>
-
             <div className={isBlurBackground ? "blur-background" : ""}></div>
 
             <Popup
@@ -117,6 +113,7 @@ const Navbar = () => {
                 trigger={isCreatePollPopupOpen}
                 setTrigger={closeCreatePollPopup}
             />
+            
         </div>
     );
 }
