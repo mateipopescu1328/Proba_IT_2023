@@ -74,7 +74,7 @@ const Poll = ({ pollId, title, options }) => {
   };
 
   return (
-    <div className="poll-container">
+    <div className="poll-container" style={{ position: 'relative' }}>
       <div className="poll-title">{title}</div>
       <div className="make-choice-text">Make a choice:</div>
       <div className="choice-container">

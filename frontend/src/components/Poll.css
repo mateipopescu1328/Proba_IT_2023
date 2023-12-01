@@ -8,6 +8,7 @@
   border-radius: 8px;
   margin-left: auto;
   margin-right: auto;
+  z-index: 1;
 }
 
 .poll-title {
@@ -60,7 +61,7 @@
 }
 
 .ceva {
-  color: white;
+  color:  black;
 }
 
 .vote-container {

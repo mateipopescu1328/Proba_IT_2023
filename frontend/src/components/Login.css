@@ -5,11 +5,11 @@
     transform: translate(-50%, -50%);
     width: 80%;
     max-width: 400px;
-    background-color: blue; 
+    background-color:  #04395E; 
     color: #fff; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    z-index: 1000;
+    z-index: 1001;
   }
   
   .popup-inner {

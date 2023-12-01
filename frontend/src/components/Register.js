@@ -43,7 +43,6 @@ function RegisterPopup(props) {
       setMessage(responseData.message);
       setError(null);
 
-      // Șterge valorile din câmpuri după înregistrare reușită
       setEmail('');
       setPassword('');
       setConfirmPassword('');

@@ -1,8 +1,12 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;   
-  background-color: #04395E;
+  box-sizing: border-box;  
+}
+
+body {
+  background: url('./components/deskback.png') no-repeat center center fixed;
+  background-size: cover;
 }
 
 .App {

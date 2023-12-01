@@ -1,171 +1,189 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;   
-    background: #04395E;
- }
-  
-  .App {
-    text-align: center;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  .App-logo {
-    height: 7vmin;
-    pointer-events: none;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  .testpng{
-    position: absolute;
-    top: 105px;
-    right: 0;
-    height: 30vmin;
-    pointer-events: none;
-    z-index: 1;
-  }
-  
-  .content-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    top: 80px;
-  }
-  
-  .half {
-    width: 50%;
-    box-sizing: border-box;
-  }
-  
-  .left {
-    text-align: center;
-    color: white;
-    max-width: 100%; 
-    margin: 0 auto; 
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 1002;
+}
+
+.App {
+  text-align: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.App-logo {
+  height: 7vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.testpng {
+  position: absolute;
+  top: 105px;
+  right: 0;
+  height: 30vmin;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.content-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  top: 80px;
+  background-color: transparent;
+  z-index: 1002;
+}
+
+.half {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.left {
+  text-align: center;
+  color: white;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+p {
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
   p {
-    font-size: 1.2em; 
+    font-size: 0.75em;
   }
-  
-  @media (max-width: 768px) {
-    p {
-      font-size: 0.75em; 
-    }
+}
+
+.right {
+  text-align: right;
+}
+
+img {
+  max-width: 75%;
+  width: 745;
+  height: 483;
+  top: 82px;
+  left: 695px;
+  z-index: 1;
+}
+
+.footer {
+  background-color: #ff66b2;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  margin-top: auto;
+  z-index: 1001;
+}
+
+.content-container{
+  background: url('./deskback.png') no-repeat center center fixed;
+  background-size: cover;
+  z-index: 2;
+}
+
+.polls-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+  background: url('./deskback.png') no-repeat center center fixed;
+  background-size: cover;
+  margin-top: 0px;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .polls-container, .content-row {
+    justify-content: center;
+    /* Centrare pe dispozitive mici */
+    background: url('./mobback.png') no-repeat center center fixed;
+    background-size: cover;
+    margin-top: 0px;
   }
-  
-  .right {
-    text-align: right;
-  }
-  
-  img {
-    max-width: 75%;
-    width: 745;
-    height: 483;
-    top: 82px;
-    left: 695px;
-    z-index: 1;
-  }
-  
-  .footer {
-    background-color: #ff66b2;
-    padding: 20px;
-    text-align: center;
-    width: 100%;
-    margin-top: auto; 
-  }
-  
-  .polls-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  @media (max-width: 768px) {
-    .polls-container {
-      justify-content: center; /* Centrare pe dispozitive mici */
-    }
-  }
-  @media (min-width: 769px) {
-    .poll-container {
-      width: calc(50% - 10px) !important; /* Afișează câte două pe rând, cu un spațiu între ele */
-    }
-  }
-  
+}
+
+@media (min-width: 769px) {
   .poll-container {
-    background-color:white;
-    padding: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 10px);
-    margin-bottom: 20px;
-    max-width: 100px;
-    border-radius: 8px;
-    margin-left: 50px;
-    margin-right: 50px;
+    width: calc(50% - 10px) !important;
+    /* Afișează câte două pe rând, cu un spațiu între ele */
   }
-  
-  .poll-title {
-    background-color:white;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    text-align: left;
-  
-  }
-  
-  .choice-container {
-    background-color:white;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-  }
-  
-  .choice-label {
-    display: flex;
-    background-color:white;
-    margin-bottom: 5px;
-  }
-  
-  .choice-option {
-    margin-right: 5px;
-    background-color:white;
-  }
-  
-  .make-choice-text {
-    font-size: 0.8em;
-    color: #555;
-    background-color:white;
-    margin-bottom: 5px;
-    text-align: left;
-  }
-  
-  .vote-btn {
-    display: flex;
-    margin-top: 10px;
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #04395E;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    margin-left: auto !important;
-  }
-  
+}
+
+.poll-container {
+  background-color: white !important;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+  max-width: 100px;
+  border-radius: 8px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.poll-title {
+  background-color: white;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  text-align: left;
+
+}
+
+.choice-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.choice-label {
+  display: flex;
+  background-color: white;
+  margin-bottom: 5px;
+}
+
+.choice-option {
+  margin-right: 5px;
+  background-color: white;
+}
+
+.make-choice-text {
+  font-size: 0.8em;
+  color: #555;
+  background-color: white;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.vote-btn {
+  display: flex;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #04395E;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  margin-left: auto !important;
+}

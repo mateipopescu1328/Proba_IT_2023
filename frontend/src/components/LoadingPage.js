@@ -16,7 +16,7 @@ function LoadingPage() {
     }, []);
 
     return (
-        <div className="App">
+        <div className="App" style={{ position: 'relative' }}>
             <Navbar />
 
             <div className="content-container">

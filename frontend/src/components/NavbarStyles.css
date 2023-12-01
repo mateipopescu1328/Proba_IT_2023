@@ -4,6 +4,7 @@ nav {
     justify-content: space-between;
     background-color: white;
     padding: 20px 80px;
+    z-index: 1;
 }
 
 #navbar {
@@ -34,7 +35,7 @@ nav {
 
 #mobile i {
     align-items: center;
-    color: blue;
+    color: #04395E;
 }
 
 @media screen and (max-width: 769px) {
@@ -53,11 +54,12 @@ nav {
         transition: 0.3s ease-in-out;
         width: 170px;
         align-items: right;
+        z-index: 1000;
     }
 
     #navbar.active {
         right: 0px;
-        z-index: 2;
+        z-index: 1000;
     }
 
     #navbar li {
