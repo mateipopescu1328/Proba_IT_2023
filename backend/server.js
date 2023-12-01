@@ -155,7 +155,7 @@ app.post('/api/createpoll', checkAuth, async (req, res) => {
 
 app.get('/api/polls', async (req, res) => {
   try {
-    const polls = await Poll.find().sort({ createdAt: -1 }); // Sortează descrescător după createdAt
+    const polls = await Poll.find().sort({ createdAt: -1 });
     res.status(200).json(polls);
   } catch (error) {
     console.error(error);
@@ -164,7 +164,6 @@ app.get('/api/polls', async (req, res) => {
 });
 
 
-// În ruta API pentru obținerea detaliilor unui sondaj
 app.get('/api/polls/:id', async (req, res) => {
   try {
     const pollId = req.params.id;
@@ -173,7 +172,6 @@ app.get('/api/polls/:id', async (req, res) => {
       return res.status(404).json({ message: 'Pollul nu a fost găsit' });
     }
 
-    // Returnează detaliile sondajului cu numărul de voturi pentru fiecare opțiune
     const pollDetails = {
       _id: poll._id,
       title: poll.title,
@@ -200,7 +198,7 @@ app.get('/api/latestpolls', async (req, res) => {
   }
 });
 
-// În server.js, ruta pentru înregistrarea voturilor
+
 app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
   try {
     const pollId = req.params.id;
@@ -213,12 +211,10 @@ app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
       return res.status(404).json({ message: 'Pollul nu a fost găsit' });
     }
 
-    // Verifică dacă utilizatorul a votat deja în acest poll
     if (poll.voters.includes(userId)) {
       return res.status(400).json({ message: 'Ai votat deja în acest poll' });
     }
 
-    // Actualizează numărul de voturi pentru opțiunea selectată
     const optionIndex = poll.options.findIndex(option => option.text === selectedOption);
     if (optionIndex !== -1) {
       poll.options[optionIndex].votes += 1;
@@ -226,7 +222,6 @@ app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
       return res.status(400).json({ message: 'Opțiunea de vot nu există în acest poll' });
     }
 
-    // Adaugă utilizatorul la lista de votanți
     poll.voters.push(userId);
 
     await poll.save();
@@ -238,5 +233,34 @@ app.post('/api/polls/:id/vote', checkAuth, async (req, res) => {
   }
 });
 
+app.delete('/api/polls/:id', checkAuth, async (req, res) => {
+  try {
+    const pollId = req.params.id;
+    const userId = req.user.id;
+
+    const poll = await Poll.findById(pollId);
+
+    if (!poll) {
+      return res.status(404).json({ message: 'Sondajul nu a fost găsit' });
+    }
+
+    if (poll.owner.toString() !== userId) {
+      return res.status(403).json({ message: 'Nu aveți permisiunea de a șterge acest sondaj' });
+    }
+
+    await Poll.findByIdAndDelete(pollId);
+
+    const user = await User.findById(userId);
+    if (user) {
+      user.polls = user.polls.filter(userPollId => userPollId.toString() !== pollId);
+      await user.save();
+    }
+
+    res.status(200).json({ message: 'Sondaj șters cu succes' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Eroare la ștergerea sondajului' });
+  }
+});
 
 app.listen(PORT, () => console.log(`Serverul rulează la adresa http://localhost:${PORT}`));

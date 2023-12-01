@@ -15,6 +15,32 @@ function CreatePollPage() {
             .catch(error => console.error('Eroare la obținerea tuturor poll-urilor:', error));
     }, []);
 
+    const handleDeletePoll = async (pollId) => {
+        try {
+            const token = localStorage.getItem('auth-token');
+            const response = await fetch(`http://localhost:5000/api/polls/${pollId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token,
+                },
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Poll șters cu succes:', data.message);
+
+                const updatedPolls = allPolls.filter((poll) => poll._id !== pollId);
+                setAllPolls(updatedPolls);
+            } else {
+                console.error('Eroare la ștergerea poll-ului:', data.message);
+            }
+        } catch (error) {
+            console.error('Eroare la ștergerea poll-ului:', error.message);
+        }
+    };
+
     return (
         <div className="App">
             <Navbar />

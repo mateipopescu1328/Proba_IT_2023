@@ -32,8 +32,9 @@
   text-align: left;
 }
 
-.vote-btn {
-  display: flex;
+.vote-btn,
+.delete-btn {
+  display: block;
   margin-top: 10px;
   cursor: pointer;
   padding: 5px 10px;
@@ -61,7 +62,7 @@
 }
 
 .ceva {
-  color:  black;
+  color: black;
 }
 
 .vote-container {
